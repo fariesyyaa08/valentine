@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Be My Valentine?</title>
 
-  <!-- Cute Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 
   <style>
@@ -24,7 +23,6 @@
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      position: relative;
     }
 
     h1 {
@@ -34,8 +32,10 @@
     }
 
     .buttons {
-      position: relative;
-      height: 100px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
     }
 
     button {
@@ -45,6 +45,7 @@
       border: none;
       cursor: pointer;
       font-family: inherit;
+      transition: transform 0.2s ease;
     }
 
     #yes {
@@ -55,13 +56,6 @@
     #no {
       background-color: #ffd6e0;
       color: #ff4d6d;
-      position: absolute;
-      left: 120px;
-    }
-
-    .hearts {
-      font-size: 1.5rem;
-      margin-top: 20px;
     }
   </style>
 </head>
@@ -74,19 +68,25 @@
       <button id="yes">Yes 💕</button>
       <button id="no">No 💔</button>
     </div>
-
-    <div class="hearts">💖 💗 💓 💕</div>
   </div>
 
   <script>
+    const yesButton = document.getElementById("yes");
     const noButton = document.getElementById("no");
 
-    noButton.addEventListener("mouseover", () => {
-      const x = Math.random() * 200;
-      const y = Math.random() * 80;
+    let yesScale = 1;
+    let noScale = 1;
 
-      noButton.style.left = x + "px";
-      noButton.style.top = y + "px";
+    noButton.addEventListener("click", () => {
+      yesScale += 0.15;
+      noScale -= 0.15;
+
+      yesButton.style.transform = `scale(${yesScale})`;
+      noButton.style.transform = `scale(${noScale})`;
+
+      if (noScale <= 0.1) {
+        noButton.style.display = "none";
+      }
     });
   </script>
 
